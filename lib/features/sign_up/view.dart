@@ -3,8 +3,8 @@ import '../widgets/header.dart';
 import '../widgets/custom_input_field.dart';
 import '../widgets/footer.dart';
 
-class LoginView extends StatelessWidget {
-  const LoginView({super.key});
+class SignUpView extends StatelessWidget {
+  const SignUpView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,12 @@ class LoginView extends StatelessWidget {
             spacing: 20,
             children: [
               Header(
-                title: "Login to your account",
-                subtitle: "It's great to see you again.",
+                title: "Create an account",
+                subtitle: "Let’s create your account.",
+              ),
+              CustomInputField(
+                label: "Full Name",
+                hintText: "Enter your full name",
               ),
               CustomInputField(
                 label: "Username",
@@ -30,12 +34,17 @@ class LoginView extends StatelessWidget {
                 hintText: "Enter your password",
                 isPassword: true,
               ),
+              CustomInputField(
+                label: "Confirm Password",
+                hintText: "Enter your password",
+                isPassword: true,
+              ),
               Expanded(
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Footer(
-                    firstPart: "Don't have an account? ",
-                    secondPart: "Join",
+                    firstPart: "Already have an account? ",
+                    secondPart: "Log In",
                   ),
                 ),
               ),

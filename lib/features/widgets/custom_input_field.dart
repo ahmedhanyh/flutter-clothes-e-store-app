@@ -6,10 +6,12 @@ class CustomInputField extends StatefulWidget {
   const CustomInputField({
     super.key,
     required this.label,
+    required this.hintText,
     this.isPassword = false,
   });
 
   final String label;
+  final String hintText;
   final bool isPassword;
 
   @override
@@ -48,7 +50,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
               borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
               borderRadius: BorderRadius.circular(10),
             ),
-            hintText: "Enter your ${widget.label.toLowerCase()}",
+            hintText: widget.hintText,
             hintStyle: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 16,
