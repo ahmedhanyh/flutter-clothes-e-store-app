@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/header.dart';
 import '../widgets/custom_input_field.dart';
 import '../widgets/footer.dart';
+import '../../core/resources/app_colors.dart';
 
 class SignUpView extends StatelessWidget {
   const SignUpView({super.key});
@@ -38,6 +39,21 @@ class SignUpView extends StatelessWidget {
                 label: "Confirm Password",
                 hintText: "Enter your password",
                 isPassword: true,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: primaryColor,
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: () {},
+                child: Text(
+                  "Create Account",
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                ),
               ),
               Expanded(
                 child: Align(
