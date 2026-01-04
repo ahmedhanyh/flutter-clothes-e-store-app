@@ -1,6 +1,5 @@
 import 'package:clothes_e_shop/core/resources/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class ProductDetailsView extends StatelessWidget {
   const ProductDetailsView({super.key});

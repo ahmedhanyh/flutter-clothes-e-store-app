@@ -1,4 +1,5 @@
 import 'package:clothes_e_shop/core/resources/app_colors.dart';
+import 'package:clothes_e_shop/features/sign_up/view.dart';
 import 'package:flutter/material.dart';
 import '../widgets/header.dart';
 import '../widgets/custom_input_field.dart';
@@ -53,6 +54,7 @@ class LoginView extends StatelessWidget {
                   child: Footer(
                     firstPart: "Don't have an account? ",
                     secondPart: "Join",
+                    destination: SignUpView(),
                   ),
                 ),
               ),

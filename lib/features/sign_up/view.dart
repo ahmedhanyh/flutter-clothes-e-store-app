@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../login/view.dart';
 import '../widgets/header.dart';
 import '../widgets/custom_input_field.dart';
 import '../widgets/footer.dart';
@@ -61,6 +62,7 @@ class SignUpView extends StatelessWidget {
                   child: Footer(
                     firstPart: "Already have an account? ",
                     secondPart: "Log In",
+                    destination: LoginView(),
                   ),
                 ),
               ),
