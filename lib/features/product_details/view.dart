@@ -1,5 +1,6 @@
 import 'package:clothes_e_shop/core/resources/app_colors.dart';
 import 'package:flutter/material.dart';
+import '../home/view.dart';
 
 class ProductDetailsView extends StatelessWidget {
   const ProductDetailsView({super.key});
@@ -10,7 +11,14 @@ class ProductDetailsView extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: Icon(Icons.arrow_back),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) {
+                  return HomeView();
+                }));
+          },
+            child: Icon(Icons.arrow_back)),
         title: Text(
           "Details",
           style: TextStyle(
@@ -70,6 +78,7 @@ class ProductDetailsView extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           spacing: 12,

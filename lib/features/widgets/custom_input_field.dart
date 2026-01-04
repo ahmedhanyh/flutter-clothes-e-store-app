@@ -7,11 +7,13 @@ class CustomInputField extends StatefulWidget {
     super.key,
     required this.label,
     required this.hintText,
+    required this.controller,
     this.isPassword = false,
   });
 
   final String label;
   final String hintText;
+  final TextEditingController controller;
   final bool isPassword;
 
   @override
@@ -41,6 +43,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
           ),
         ),
         TextFormField(
+          controller: widget.controller,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey.shade300, width: 1),

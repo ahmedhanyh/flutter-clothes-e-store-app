@@ -1,5 +1,12 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:clothes_e_shop/core/resources/snack_bar.dart';
+import 'package:clothes_e_shop/features/home/view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clothes_e_shop/core/resources/app_colors.dart';
+import 'package:clothes_e_shop/features/login/cubit.dart';
+import 'package:clothes_e_shop/features/login/state.dart';
 import 'package:clothes_e_shop/features/sign_up/view.dart';
+import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import '../widgets/header.dart';
 import '../widgets/custom_input_field.dart';
@@ -10,57 +17,92 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            spacing: 20,
-            children: [
-              Header(
-                title: "Login to your account",
-                subtitle: "It's great to see you again.",
+    return BlocProvider(
+      create: (_) => LoginCubit(),
+      child: BlocConsumer<LoginCubit, LoginState>(
+        listener: (context, state) {
+          if (state is LoginSuccess) {
+            mySnackBar(msg: "Login Successful", type: AnimatedSnackBarType.success, context: context);
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+              return HomeView();
+            }));
+          }
+          if (state is LoginFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              mySnackBar(msg: state.errorMessage, type: AnimatedSnackBarType.error, context: context)
+            );
+          }
+        },
+        builder: (context, state) {
+          final cubit = context.read<LoginCubit>();
+          if (state is LoginLoading) {
+            return Scaffold(
+              body: Center(
+                child: Lottie.asset("assets/animations/loading.json"),
               ),
-              CustomInputField(
-                label: "Username",
-                hintText: "Enter your username",
-              ),
-              CustomInputField(
-                label: "Password",
-                hintText: "Enter your password",
-                isPassword: true,
-              ),
-              SizedBox(height: 10),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
-                  foregroundColor: Colors.white,
-                  padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+            );
+          }
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  spacing: 20,
+                  children: [
+                    Header(
+                      title: "Login to your account",
+                      subtitle: "It's great to see you again.",
+                    ),
+                    CustomInputField(
+                      label: "Username",
+                      hintText: "Enter your username",
+                      controller: cubit.usernameController,
+                    ),
+                    CustomInputField(
+                      label: "Password",
+                      hintText: "Enter your password",
+                      isPassword: true,
+                      controller: cubit.passwordController,
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: primaryColor,
+                        foregroundColor: Colors.white,
+                        padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () {
+                        cubit.login();
+                      },
+                      child: Text(
+                        "Sign In",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Footer(
+                          firstPart: "Don't have an account? ",
+                          secondPart: "Join",
+                          destination: SignUpView(),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                onPressed: () {},
-                child: Text(
-                  "Sign In",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                ),
               ),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Footer(
-                    firstPart: "Don't have an account? ",
-                    secondPart: "Join",
-                    destination: SignUpView(),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
